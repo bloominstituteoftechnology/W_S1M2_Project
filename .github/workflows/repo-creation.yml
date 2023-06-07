@@ -12,10 +12,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-    if: github.event.pusher.username == 'github-classroom[bot]'
-
-    steps:
       - name: Add team as admin
+        if: github.event.pusher.username == 'github-classroom[bot]'
         uses: octokit/request-action@v2.x
         with:
           route: PUT /repos/${{ github.repository }}/collaborators/teams/id-team
