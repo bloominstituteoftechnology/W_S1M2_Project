@@ -1,17 +1,20 @@
-name: Repository Creation
-
+name: User-specific Push Workflow
 on:
-  repository:
-    types: [created]
+  push:
+    branches:
+      - main  # Replace with your desired branch
 
 jobs:
-  add-team-access:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+    if: github.event.pusher.username == 'github-classroom[bot]'
+
+    steps:
       - name: Add team as admin
         uses: octokit/request-action@v2.x
         with:
